@@ -17,22 +17,12 @@ class Helpdesk {
     }
 
     changeTicketStatus(id, newStatus) {
-        let left = 0,
-            right = this.tickets.length - 1;
-        while (left <= right) {
-            let pivot = Math.floor((left + right) / 2);
-            let ticket = this.tickets[pivot];
+        let foundTicket = this.tickets.filter(ticket => ticket.id === id)
+        if (!foundTicket)
+            return false;
 
-            if (ticket.id === id) {
-                ticket.status = newStatus;
-                return true;
-            }
-            else if (ticket.id > id)
-                right = pivot - 1;
-            else
-                left = pivot + 1;
-        }
-        return false;
+        foundTicket.status = newStatus;
+        return true;
     }
 
     getTicketAmount() {
