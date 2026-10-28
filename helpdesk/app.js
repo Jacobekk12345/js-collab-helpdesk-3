@@ -1,6 +1,7 @@
 class Helpdesk {
     constructor() {
         this.tickets = [];
+        this.currentId = 1;
     }
 
     addTicket(ticket) {
@@ -15,7 +16,7 @@ class Helpdesk {
         return this.tickets;
     }
 
-    changeTicketStatus(id, newStatus) {
+    changeTicketStatus(id, newStatus) { // TODO: rework for binary search, id is a number
         let foundTicket = this.tickets.filter(ticket => ticket.id === id)
         if (!foundTicket)
             return false;
@@ -47,10 +48,10 @@ class Helpdesk {
 
 const helpdesk = new Helpdesk();
 
-document.getElementById("enterButton").addEventListener('click', (e) => {
+document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
     let ticket = {
-        id: document.getElementById("ticketId").value, // TODO: niepusty napis, do 100 znaków i unikatowy
+        id: document.getElementById("ticketId").value, // TODO: id is not read from the user now
         title: document.getElementById("title").value, // TODO: trim i 3–80 znaków
         priority: document.getElementById("priority").value,
         status: "new"
@@ -61,6 +62,8 @@ document.getElementById("enterButton").addEventListener('click', (e) => {
     document.getElementById("priority").value = "low";
 
     helpdesk.addTicket(ticket);
+
+
 })
 
 statusElement = document.getElementById("status");
@@ -94,3 +97,27 @@ statusElement.addEventListener('change', () => {
         ticketList.appendChild(newTicketDiv);
     });
 })
+
+function createTicketDiv(ticket) {
+    let newTicketDiv = document.createElement("div"); // TODO: id will not be displayed
+    newTicketDiv.id = ticket.id;
+
+    let idLabel = document.createElement("p");
+    idLabel.textContent = ticket.id;
+
+    let titleLabel = document.createElement("p");
+    titleLabel.textContent = ticket.title;
+
+    let priorityLabel = document.createElement("p");
+    priorityLabel.textContent = ticket.priority;
+
+    let statusLabel = document.createElement("p");
+    statusLabel.textContent = ticket.status;
+
+    newTicketDiv.appendChild(idLabel);
+    newTicketDiv.appendChild(titleLabel);
+    newTicketDiv.appendChild(priorityLabel);
+    newTicketDiv.appendChild(statusLabel);
+
+    ticketList.appendChild(newTicketDiv);
+}
