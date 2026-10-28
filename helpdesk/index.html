@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <script src="app.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Helpdesk</title>
@@ -9,21 +10,23 @@
 </head>
 <body>
     <div id="mainBlock">
-        <form id="helpdeskForm">
-            <label for="ticketId">ID:</label>
+        <div id="formBlock">
+            <form id="helpdeskForm">
+                <label for="ticketId">ID:</label>
                 <input type="text" id="ticketId" name="ticketId">
-            <label for="title">Title: </label>
-            <input type="text" id="title" name="title">
-            <label for="priority">Priority:</label>
-            <select id="priority" name="priority">
-                <option value="low" selected="selected">Low</option>
-                <option value="normal">Normal</option>
-                <option value="high">High</option>
-            </select>
-            <button type="submit" id="enterButton">
-                Enter
-            </button>
-        </form>
+                <label for="title">Title: </label>
+                <input type="text" id="title" name="title"><br>
+                <label for="priority">Priority:</label>
+                <select id="priority" name="priority">
+                    <option value="low" selected="selected">Low</option>
+                    <option value="normal">Normal</option>
+                    <option value="high">High</option>
+                </select>
+                <button type="submit" id="submitButton">
+                    Enter
+                </button>
+            </form>
+        </div>
         <div id="results">
             <label for="status">Status</label>
             <select id="status" name="status">

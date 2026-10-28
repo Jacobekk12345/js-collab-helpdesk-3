@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box; 
+  margin: 0;
+  padding: 0;
+}
+
+#formBlock {
+    width: 500px;
+    height: 100px;
+    border: black 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+    
+}
+
+#mainBlock{
+    width: 100vw;
+    height: 100vh;
+    margin: 30px;
+}
+
+#submitButton {
+    margin-left: 30px;
+}
