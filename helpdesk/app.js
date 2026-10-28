@@ -1,7 +1,6 @@
 class Helpdesk {
     constructor() {
         this.tickets = [];
-        this.currentId = 1;
     }
 
     addTicket(ticket) {
