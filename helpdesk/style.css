@@ -5,11 +5,12 @@
 }
 
 #formBlock {
-    width: 500px;
-    height: 100px;
+    width: 450px;
+    height: auto;
     border: black 1px solid;
     border-radius: 10px;
     padding: 10px;
+    line-height: 30px;
     
 }
 
@@ -20,5 +21,10 @@
 }
 
 #submitButton {
-    margin-left: 30px;
+    border-radius: 3px;
+    padding: 2px 10px 2px 10px;
+}
+
+#results {
+    margin: 20px;
 }
