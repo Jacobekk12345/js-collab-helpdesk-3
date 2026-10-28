@@ -64,9 +64,33 @@ document.getElementById("enterButton").addEventListener('click', (e) => {
 })
 
 statusElement = document.getElementById("status");
+ticketList = document.getElementById("list");
 statusElement.addEventListener('change', () => {
+    ticketList.innerHTML = "";
+
     let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
+
     filteredTickets.forEach(ticket => {
-        
+        let newTicketDiv = document.createElement("div");
+        newTicketDiv.id = ticket.id;
+
+        let idLabel = document.createElement("p");
+        idLabel.textContent = ticket.id;
+
+        let titleLabel = document.createElement("p");
+        titleLabel.textContent = ticket.title;
+
+        let priorityLabel = document.createElement("p");
+        priorityLabel.textContent = ticket.priority;
+
+        let statusLabel = document.createElement("p");
+        statusLabel.textContent = ticket.status;
+
+        newTicketDiv.appendChild(idLabel);
+        newTicketDiv.appendChild(titleLabel);
+        newTicketDiv.appendChild(priorityLabel);
+        newTicketDiv.appendChild(statusLabel);
+
+        ticketList.appendChild(newTicketDiv);
     });
 })
