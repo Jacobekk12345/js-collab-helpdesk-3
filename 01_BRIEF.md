@@ -4,7 +4,7 @@ Zbudujecie Helpdesk w pamięci przeglądarki.
 
 **TECH** wyjaśnia konstrukcje, **PROWADZENIE** dzieli tę samą pracę na kroki.
 
-###Funkcjonalności: 
+### Funkcjonalności: 
 
 - dodawanie tytułu i priorytetu dla zgłoszenia
 - lista zgłoszeń
@@ -13,7 +13,7 @@ Zbudujecie Helpdesk w pamięci przeglądarki.
 - licznik widoczne/wszystkie
 - komunikat pustego wyniku.
 
-###Wymagania:
+### Wymagania:
 
 - formularz (dodawanie nowego zgłoszenia) działa przez pociśnięcie klawisza [Enter]
 - elementy mają etykiety
