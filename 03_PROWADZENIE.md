@@ -8,17 +8,20 @@ W parze:
 
 W trójce:
 
-- C pisze próby i adapter danych. 
+- A zaczyna reguły
+- B interfejs
+- C pisze próby i adapter danych
 
-**Najpierw uzgodnijcie wejście i wynik funkcji, aby pracować równolegle**. 
 
-Po pierwszym działającym przyroście (commicie) zamieńcie role; każdy pisze kod i przegląda zmianę partnera. 
+### Wytyczne
 
-Krótkie gałęzie w istniejącym repo GitHub, małe commity, przegląd i integracja po jednym zachowaniu. 
+- **Najpierw uzgodnijcie wejście i wynik funkcji, aby pracować równolegle**. 
 
-Nie czekajcie z połączeniem do końca. 
+- \[sugestia\] Po pierwszym działającym przyroście (commicie) zamieńcie role; każdy pisze kod i przegląda zmianę partnera. 
 
-Zakończcie jedną obserwacją z prób i jednym usprawnieniem pracy.
+- \[zalecenie\] Małe branche w istniejącym repo GitHub, małe commity, przegląd i integracja po każdym etapie. 
+
+- Nie czekajcie z merge'owaniem branchy do końca collaba. 
 
 
 ## 1. HTML i kontrolki
@@ -31,54 +34,59 @@ Zakończcie jedną obserwacją z prób i jednym usprawnieniem pracy.
     -  komunikat role=status
 - Podłączcie `app.js` przez atrybut `defer`
 
-**Sprawdźcie:** W konsoli selektory zwracają elementy. `Null` oznacza zły selektor lub złą kolejność.
+**Sprawdźcie:** W konsoli selektory DOM zwracają elementy. `Null` oznacza zły selektor lub złą kolejność.
 
 ## 2. Dane przed widokiem
-Ręcznie utwórzcie dwa rekordy o tym samym tytule i różnych id. Uzgodnijcie addTicket i changeStatus.
+- Ręcznie utwórzcie dwa rekordy o tym samym tytule i różnych id.
+- Uzgodnijcie `addTicket()` i `changeStatus()`.
 
-**Sprawdźcie:** Reguły działają w konsoli bez czytania dokumentu.
-
-Przed następnym krokiem partner wyjaśnia, skąd pochodzą dane i co może je zmienić. Jeśli wynik odbiega, zatrzymajcie się na najmniejszym wywołaniu; czytajcie pierwszy błąd w Console, nie ostatni skutek.
+**Sprawdźcie:** 
+- Reguły działają w konsoli bez czytania dokumentu.
 
 ## 3. Pierwszy render
-Wyczyśćcie tylko listę. Dla każdego rekordu utwórzcie li i ustawcie tekst przez textContent.
+- Wyczyśćcie tylko listę.
+- Dla każdego rekordu utwórzcie `<li>` i ustawcie tekst przez `textContent()`.
 
-**Sprawdźcie:** Ponowne renderowanie nie podwaja liczby wierszy. Tekst <b>ABC</b> pozostaje tekstem.
-
-Przed następnym krokiem partner wyjaśnia, skąd pochodzą dane i co może je zmienić. Jeśli wynik odbiega, zatrzymajcie się na najmniejszym wywołaniu; czytajcie pierwszy błąd w Console, nie ostatni skutek.
+**Sprawdźcie:** 
+- Ponowne renderowanie nie podwaja liczby wierszy.
+- Tekst `<b>ABC</b>` pozostaje tekstem.
 
 ## 4. Dodawanie
-W submit najpierw preventDefault, potem odczyt, walidacja i nowy stan. Czyśćcie pole tylko po sukcesie.
+- W `submit` najpierw `preventDefault()`, potem odczyt, walidacja i nowy stan.
+- Czyśćcie pole tylko po sukcesie.
 
-**Sprawdźcie:** Spacje i tytuł dwuznakowy nie dodają rekordu; Enter działa.
-
-Przed następnym krokiem partner wyjaśnia, skąd pochodzą dane i co może je zmienić. Jeśli wynik odbiega, zatrzymajcie się na najmniejszym wywołaniu; czytajcie pierwszy błąd w Console, nie ostatni skutek.
+**Sprawdźcie:** 
+- Spacje i tytuł dwuznakowy nie dodają rekordu;
+- klawisz `[Enter]` działa (dodaje nowy rekord).
 
 ## 5. Status po ID
-Dla każdego wiersza dodajcie kontrolkę zmiany statusu. Handler pamięta ID danego rekordu.
+- Dla każdego wiersza dodajcie kontrolkę zmiany statusu.
+- Handler pamięta ID danego rekordu.
 
-**Sprawdźcie:** Zmiana drugiego z równych tytułów nie zmienia pierwszego.
-
-Przed następnym krokiem partner wyjaśnia, skąd pochodzą dane i co może je zmienić. Jeśli wynik odbiega, zatrzymajcie się na najmniejszym wywołaniu; czytajcie pierwszy błąd w Console, nie ostatni skutek.
+**Sprawdźcie:** 
+- Zmiana drugiego z takich samych tytułów nie zmienia pierwszego.
 
 ## 6. Filtr i licznik
-Wyliczcie visible w renderze. Dodajcie informację o pustym wyniku i liczniku.
+- Wyliczcie zgłoszenia w statusie `visible` w renderze.
+- Dodajcie informację o pustym wyniku i liczniku.
 
-**Sprawdźcie:** Filtr done, dodanie new, powrót all: nowe zgłoszenie nadal istnieje.
-
-Przed następnym krokiem partner wyjaśnia, skąd pochodzą dane i co może je zmienić. Jeśli wynik odbiega, zatrzymajcie się na najmniejszym wywołaniu; czytajcie pierwszy błąd w Console, nie ostatni skutek.
+**Sprawdźcie:** 
+- Filtr po `done`,
+- dodanie new,
+- powrót (all): nowe zgłoszenie nadal istnieje.
 
 ## 7. Klawiatura i integracja
-Przejdźcie Tab przez cały formularz. Po zmianie statusu sprawdźcie fokus i komunikat. Zamieńcie role.
+- Przejdźcie korzystając z klawisza `[Tab]` przez cały formularz.
+- Po zmianie statusu sprawdźcie fokus i komunikat.
 
-**Sprawdźcie:** Nie ma pułapki klawiaturowej; UI i stan zgadzają się.
-
-Przed następnym krokiem partner wyjaśnia, skąd pochodzą dane i co może je zmienić. Jeśli wynik odbiega, zatrzymajcie się na najmniejszym wywołaniu; czytajcie pierwszy błąd w Console, nie ostatni skutek.
+**Sprawdźcie:** 
+- Nie ma pułapki klawiaturowej (można obsłużyć cały formularz wyłącznie z klawiatury).
+- UI i stan zgadzają się.
 
 ## Naprawa i porządkowanie
-Przypisanie tickets = tickets.filter(...) w obsłudze filtra bezpowrotnie usuwa dane. Filtr ma tworzyć tylko widok. Najpierw odtwórzcie błąd, potem naprawcie i powtórzcie to samo wejście.
-
-Wydzielcie createTicketRow(ticket) z renderu i powtórzcie te same próby. Refaktoryzacja zachowuje wynik, więc wykonajcie próby przed i po zmianie.
+- Przypisanie `tickets = tickets.filter(...)` w obsłudze filtra bezpowrotnie usuwa dane.
+- Filtr ma tworzyć tylko widok. 
+- Wydzielcie `createTicketRow(ticket)` z renderu.
 
 ## Końcowa próba zespołu
 - tytuły długości 2,3,80,81 po trim
