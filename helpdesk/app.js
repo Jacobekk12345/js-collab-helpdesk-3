@@ -45,4 +45,28 @@ class Helpdesk {
 
 }
 
-const hd = new Helpdesk();
+const helpdesk = new Helpdesk();
+
+document.getElementById("enterButton").addEventListener('click', (e) => {
+    e.preventDefault(); // prevents reload on enter
+    let ticket = {
+        id: document.getElementById("ticketId").value, // TODO: niepusty napis, do 100 znaków i unikatowy
+        title: document.getElementById("title").value, // TODO: trim i 3–80 znaków
+        priority: document.getElementById("priority").value,
+        status: "new"
+    }
+
+    document.getElementById("ticketId").value = "";
+    document.getElementById("title").value = "";
+    document.getElementById("priority").value = "low";
+
+    helpdesk.addTicket(ticket);
+})
+
+statusElement = document.getElementById("status");
+statusElement.addEventListener('change', () => {
+    let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
+    filteredTickets.forEach(ticket => {
+        
+    });
+})
