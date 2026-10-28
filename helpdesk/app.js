@@ -35,6 +35,10 @@ class Helpdesk {
         return false;
     }
 
+    getTicketAmount() {
+        return this.tickets.length;
+    }
+
 }
 
 const hd = new Helpdesk();
