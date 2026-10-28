@@ -11,6 +11,10 @@ class Helpdesk {
         return false;
     }
 
+    getTickets() {
+        return this.tickets;
+    }
+
 }
 
 const hd = new Helpdesk();
