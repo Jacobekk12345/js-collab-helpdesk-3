@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="app.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk</title>
+
+</head>
+<body>
+    <div id="mainBlock">
+        <form id="helpdeskForm">
+            <label for="recordId">
+                <input type="text" id="recordId" name="recordId">
+            </label>
+            <label for="title">Title: </label>
+            <input type="text" id="title" name="title">
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+            </select>
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="all">All</option>
+                <option value="new">New</option>
+                <option value="doing">Doing</option>
+                <option value="done">done</option>
+            </select>
+            <button type="submit" id="enterButton">
+                Enter
+            </button>
+        </form>
+    </div>
+    
+
+</body>
+</html>
