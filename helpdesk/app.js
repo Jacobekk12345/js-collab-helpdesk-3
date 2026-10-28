@@ -39,6 +39,21 @@ class Helpdesk {
         return this.tickets.length;
     }
 
+    filterTicketsByStatus(status) {
+        if (status !== "all" &&
+            status !== "new" &&
+            status !== "doing" &&
+            status !== "done") {
+            return false;
+
+        }
+
+        if (status === "all")
+            return this.tickets;
+        
+        return this.tickets.filter(ticket => ticket.status === status);
+    }
+
 }
 
 const hd = new Helpdesk();
