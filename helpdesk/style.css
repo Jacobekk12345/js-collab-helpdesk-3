@@ -2,6 +2,7 @@
   box-sizing: border-box; 
   margin: 0;
   padding: 0;
+  font-family: sans-serif;
 }
 
 #formBlock {
@@ -9,9 +10,9 @@
     height: auto;
     border: black 1px solid;
     border-radius: 10px;
-    padding: 10px;
-    line-height: 30px;
-    
+    padding: 20px;
+    line-height: 40px;
+    font-size: larger;
 }
 
 html, body {
@@ -27,8 +28,34 @@ html, body {
 #submitButton {
     border-radius: 3px;
     padding: 2px 10px 2px 10px;
+    font-size: medium;
 }
 
 #results {
     margin: 20px;
+    margin-left: 0;
+}
+
+#statusLabel {
+    font-size: large;
+}
+
+.ticketDiv {
+    margin-top: 10px;
+    border: darkgrey solid 2px;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.ticketTitle {
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.ticketPriority::before {
+    content: "Priority: ";
+}
+
+.ticketStatus::before {
+    content: "Status: ";
 }
