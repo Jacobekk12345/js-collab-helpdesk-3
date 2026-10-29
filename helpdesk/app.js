@@ -53,7 +53,6 @@ class Helpdesk {
         
         return this.tickets.filter(ticket => ticket.status === status);
     }
-
 }
 
 const helpdesk = new Helpdesk();
