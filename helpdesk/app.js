@@ -74,6 +74,9 @@ function renderTickets() {
     sortedTickets.forEach(ticket => {
         createTicketDiv(ticket);
     });
+
+    document.getElementById("showing").textContent = sortedTickets.length;
+    document.getElementById("totalTickets").textContent = helpdesk.tickets.length;
 }
 
 document.getElementById("submitButton").addEventListener('click', (e) => {

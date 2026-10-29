@@ -26,13 +26,14 @@
             </form>
         </div>
         <div id="results">
-            <label for="status" id="statusLabel">Status</label>
+            <label for="status" id="statusLabel">Filter by status</label>
             <select id="status" name="status">
                 <option value="all">All</option>
                 <option value="new" selected="selected">New</option>
                 <option value="doing">Doing</option>
-                <option value="done">done</option>
+                <option value="done">Done</option>
             </select>
+            <p id="showingLabel">Showing <span id="showing">0</span>/<span id="totalTickets">0</span> tickets</p>
             <div id="list"></div>
         </div>
     </div>
