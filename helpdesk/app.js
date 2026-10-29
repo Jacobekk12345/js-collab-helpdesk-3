@@ -63,6 +63,19 @@ class Helpdesk {
 
 const helpdesk = new Helpdesk();
 
+statusElement = document.getElementById("status");
+ticketList = document.getElementById("list");
+function renderTickets() {
+    ticketList.innerHTML = "";
+
+    let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
+    let sortedTickets = filteredTickets.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
+    sortedTickets.forEach(ticket => {
+        createTicketDiv(ticket);
+    });
+}
+
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
     let ticket = {
@@ -76,20 +89,12 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
     document.getElementById("priority").value = "low";
 
     helpdesk.addTicket(ticket);
+
+    renderTickets();
 })
 
-statusElement = document.getElementById("status");
-ticketList = document.getElementById("list");
-statusElement.addEventListener('change', () => {
-    ticketList.innerHTML = "";
+statusElement.addEventListener('change', renderTickets);
 
-    let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
-    let sortedTickets = filteredTickets.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-
-    sortedTickets.forEach(ticket => {
-        createTicketDiv(ticket);
-    });
-})
 
 function createTicketDiv(ticket) {
     let newTicketDiv = document.createElement("div");
