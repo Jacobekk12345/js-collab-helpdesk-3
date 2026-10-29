@@ -86,7 +86,7 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
         return;
     let ticket = {
         id: helpdesk.currentId++,
-        title: title, // TODO: trim i 3–80 znaków
+        title: title,
         priority: document.getElementById("priority").value,
         status: "new"
     }
