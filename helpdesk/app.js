@@ -143,4 +143,6 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
     helpdesk.renderTickets();
 })
 
-statusElement.addEventListener('change', helpdesk.renderTickets);
+helpdesk.statusElement.addEventListener('change', () => {
+    helpdesk.renderTickets();
+});
