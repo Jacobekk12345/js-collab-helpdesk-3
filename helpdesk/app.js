@@ -81,7 +81,7 @@ function renderTickets() {
 
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
-    let title = document.getElementById("title").value.trim;
+    let title = document.getElementById("title").value.trim();
     if (title.length < 3 || title.length > 80)
         return;
     let ticket = {
