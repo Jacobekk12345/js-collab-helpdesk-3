@@ -51,7 +51,7 @@ const helpdesk = new Helpdesk();
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
     let ticket = {
-        id: this.currentId++,
+        id: helpdesk.currentId++,
         title: document.getElementById("title").value, // TODO: trim i 3–80 znaków
         priority: document.getElementById("priority").value,
         status: "new"
@@ -61,8 +61,6 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
     document.getElementById("priority").value = "low";
 
     helpdesk.addTicket(ticket);
-
-
 })
 
 statusElement = document.getElementById("status");
@@ -88,11 +86,11 @@ function createTicketDiv(ticket) {
 
     let priorityLabel = document.createElement("p");
     priorityLabel.textContent = ticket.priority;
-    titleLabel.className = "ticketPriority";
+    priorityLabel.className = "ticketPriority";
 
     let statusLabel = document.createElement("p");
     statusLabel.textContent = ticket.status;
-    titleLabel.className = "ticketStatus";
+    statusLabel.className = "ticketStatus";
 
     newTicketDiv.appendChild(titleLabel);
     newTicketDiv.appendChild(priorityLabel);
