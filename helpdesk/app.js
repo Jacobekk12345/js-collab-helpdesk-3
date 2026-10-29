@@ -59,9 +59,12 @@ const helpdesk = new Helpdesk();
 
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
+    let title = document.getElementById("title").value.trim;
+    if (title.length < 3 || title.length > 80)
+        return;
     let ticket = {
         id: helpdesk.currentId++,
-        title: document.getElementById("title").value, // TODO: trim i 3–80 znaków
+        title: title, // TODO: trim i 3–80 znaków
         priority: document.getElementById("priority").value,
         status: "new"
     }
