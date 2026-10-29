@@ -52,10 +52,3 @@ html, body {
     font-size: x-large;
 }
 
-.ticketPriority::before {
-    content: "Priority: ";
-}
-
-.ticketStatus::before {
-    content: "Status: ";
-}
