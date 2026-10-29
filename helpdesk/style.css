@@ -32,3 +32,11 @@ html, body {
 #results {
     margin: 20px;
 }
+
+#statusLabel {
+    font-size: large;
+}
+
+.ticketDiv {
+    margin-top: 10px;
+}

@@ -57,7 +57,6 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
         status: "new"
     }
 
-    document.getElementById("ticketId").value = "";
     document.getElementById("title").value = "";
     document.getElementById("priority").value = "low";
 
