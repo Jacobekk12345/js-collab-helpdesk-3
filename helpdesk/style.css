@@ -53,3 +53,7 @@ html, body {
     padding-bottom: 5px;
 }
 
+#showingLabel {
+    font-size: smaller;
+    color: gray;
+}

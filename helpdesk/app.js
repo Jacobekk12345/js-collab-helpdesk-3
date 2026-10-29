@@ -1,3 +1,9 @@
+const priorityOrder = {
+    high: 1,
+    normal: 2,
+    low: 3
+}
+
 class Helpdesk {
     constructor() {
         this.tickets = [];
@@ -57,6 +63,22 @@ class Helpdesk {
 
 const helpdesk = new Helpdesk();
 
+statusElement = document.getElementById("status");
+ticketList = document.getElementById("list");
+function renderTickets() {
+    ticketList.innerHTML = "";
+
+    let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
+    let sortedTickets = filteredTickets.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
+    sortedTickets.forEach(ticket => {
+        createTicketDiv(ticket);
+    });
+
+    document.getElementById("showing").textContent = sortedTickets.length;
+    document.getElementById("totalTickets").textContent = helpdesk.tickets.length;
+}
+
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
     let title = document.getElementById("title").value.trim();
@@ -64,7 +86,7 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
         return;
     let ticket = {
         id: helpdesk.currentId++,
-        title: title, // TODO: trim i 3–80 znaków
+        title: title,
         priority: document.getElementById("priority").value,
         status: "new"
     }
@@ -73,19 +95,12 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
     document.getElementById("priority").value = "low";
 
     helpdesk.addTicket(ticket);
+
+    renderTickets();
 })
 
-statusElement = document.getElementById("status");
-ticketList = document.getElementById("list");
-statusElement.addEventListener('change', () => {
-    ticketList.innerHTML = "";
+statusElement.addEventListener('change', renderTickets);
 
-    let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
-
-    filteredTickets.forEach(ticket => {
-        createTicketDiv(ticket);
-    });
-})
 
 function createTicketDiv(ticket) {
     let newTicketDiv = document.createElement("div");
@@ -97,11 +112,14 @@ function createTicketDiv(ticket) {
     titleLabel.className = "ticketTitle";
 
     let priorityLabel = document.createElement("p");
-    priorityLabel.textContent = ticket.priority;
+    priorityLabel.textContent = `Priority: ${ticket.priority}`;
     priorityLabel.className = "ticketPriority";
 
+    let statusLabel = document.createElement("p");
+    statusLabel.className = "ticketStatus";
+
     let statusSelect = document.createElement("select");
-    statusSelect.className = "ticketStatus";
+    statusSelect.className = "ticketStatusSelect";
     statusSelect.id = `statusSelect${ticket.id}`;
     
     const optionNew = new Option("New", "new");
@@ -112,11 +130,14 @@ function createTicketDiv(ticket) {
     statusSelect.add(optionDoing);
     statusSelect.add(optionDone);
 
-    statusSelect.value = "new";
+    statusSelect.value = ticket.status;
+    
+    statusLabel.textContent = "Status: ";
+    statusLabel.appendChild(statusSelect);
 
     newTicketDiv.appendChild(titleLabel);
     newTicketDiv.appendChild(priorityLabel);
-    newTicketDiv.appendChild(statusSelect);
+    newTicketDiv.appendChild(statusLabel);
 
     ticketList.appendChild(newTicketDiv);
 
