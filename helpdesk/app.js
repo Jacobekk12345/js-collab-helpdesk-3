@@ -94,11 +94,14 @@ function createTicketDiv(ticket) {
     titleLabel.className = "ticketTitle";
 
     let priorityLabel = document.createElement("p");
-    priorityLabel.textContent = ticket.priority;
+    priorityLabel.textContent = `Priority: ${ticket.priority}`;
     priorityLabel.className = "ticketPriority";
 
+    let statusLabel = document.createElement("p");
+    statusLabel.className = "ticketStatus";
+
     let statusSelect = document.createElement("select");
-    statusSelect.className = "ticketStatus";
+    statusSelect.className = "ticketStatusSelect";
     statusSelect.id = `statusSelect${ticket.id}`;
     
     const optionNew = new Option("New", "new");
@@ -110,10 +113,13 @@ function createTicketDiv(ticket) {
     statusSelect.add(optionDone);
 
     statusSelect.value = "new";
+    
+    statusLabel.textContent = "Status: ";
+    statusLabel.appendChild(statusSelect);
 
     newTicketDiv.appendChild(titleLabel);
     newTicketDiv.appendChild(priorityLabel);
-    newTicketDiv.appendChild(statusSelect);
+    newTicketDiv.appendChild(statusLabel);
 
     ticketList.appendChild(newTicketDiv);
 
