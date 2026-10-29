@@ -1,3 +1,9 @@
+const priorityOrder = {
+    high: 1,
+    normal: 2,
+    low: 3
+}
+
 class Helpdesk {
     constructor() {
         this.tickets = [];
@@ -78,8 +84,9 @@ statusElement.addEventListener('change', () => {
     ticketList.innerHTML = "";
 
     let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
+    let sortedTickets = filteredTickets.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
 
-    filteredTickets.forEach(ticket => {
+    sortedTickets.forEach(ticket => {
         createTicketDiv(ticket);
     });
 })
