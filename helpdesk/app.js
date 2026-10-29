@@ -51,7 +51,7 @@ const helpdesk = new Helpdesk();
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
     let ticket = {
-        id: document.getElementById("ticketId").value, // TODO: id is not read from the user now
+        id: this.currentId++,
         title: document.getElementById("title").value, // TODO: trim i 3–80 znaków
         priority: document.getElementById("priority").value,
         status: "new"
@@ -74,47 +74,27 @@ statusElement.addEventListener('change', () => {
     let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
 
     filteredTickets.forEach(ticket => {
-        let newTicketDiv = document.createElement("div");
-        newTicketDiv.id = ticket.id;
-
-        let idLabel = document.createElement("p");
-        idLabel.textContent = ticket.id;
-
-        let titleLabel = document.createElement("p");
-        titleLabel.textContent = ticket.title;
-
-        let priorityLabel = document.createElement("p");
-        priorityLabel.textContent = ticket.priority;
-
-        let statusLabel = document.createElement("p");
-        statusLabel.textContent = ticket.status;
-
-        newTicketDiv.appendChild(idLabel);
-        newTicketDiv.appendChild(titleLabel);
-        newTicketDiv.appendChild(priorityLabel);
-        newTicketDiv.appendChild(statusLabel);
-
-        ticketList.appendChild(newTicketDiv);
+        createTicketDiv(ticket);
     });
 })
 
 function createTicketDiv(ticket) {
-    let newTicketDiv = document.createElement("div"); // TODO: id will not be displayed
+    let newTicketDiv = document.createElement("div");
     newTicketDiv.id = ticket.id;
-
-    let idLabel = document.createElement("p");
-    idLabel.textContent = ticket.id;
+    newTicketDiv.className = "ticketDiv";
 
     let titleLabel = document.createElement("p");
     titleLabel.textContent = ticket.title;
+    titleLabel.className = "ticketTitle";
 
     let priorityLabel = document.createElement("p");
     priorityLabel.textContent = ticket.priority;
+    titleLabel.className = "ticketPriority";
 
     let statusLabel = document.createElement("p");
     statusLabel.textContent = ticket.status;
+    titleLabel.className = "ticketStatus";
 
-    newTicketDiv.appendChild(idLabel);
     newTicketDiv.appendChild(titleLabel);
     newTicketDiv.appendChild(priorityLabel);
     newTicketDiv.appendChild(statusLabel);
