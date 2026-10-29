@@ -8,6 +8,8 @@ class Helpdesk {
     constructor() {
         this.tickets = [];
         this.currentId = 1;
+        this.statusElement = document.getElementById("status");
+        this.ticketList = document.getElementById("list");
     }
 
     addTicket(ticket) {
@@ -59,25 +61,67 @@ class Helpdesk {
         
         return this.tickets.filter(ticket => ticket.status === status);
     }
+
+    renderTickets() {
+        this.ticketList.innerHTML = "";
+
+        let filteredTickets = helpdesk.filterTicketsByStatus(this.statusElement.value);
+        let sortedTickets = filteredTickets.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
+        sortedTickets.forEach(ticket => {
+            this.createTicketDiv(ticket);
+        });
+
+        document.getElementById("showing").textContent = sortedTickets.length;
+        document.getElementById("totalTickets").textContent = helpdesk.tickets.length;
+    }
+
+    createTicketDiv(ticket) {
+        let newTicketDiv = document.createElement("div");
+        newTicketDiv.id = ticket.id;
+        newTicketDiv.className = "ticketDiv";
+
+        let titleLabel = document.createElement("p");
+        titleLabel.textContent = ticket.title;
+        titleLabel.className = "ticketTitle";
+
+        let priorityLabel = document.createElement("p");
+        priorityLabel.textContent = `Priority: ${ticket.priority}`;
+        priorityLabel.className = "ticketPriority";
+
+        let statusLabel = document.createElement("p");
+        statusLabel.className = "ticketStatus";
+
+        let statusSelect = document.createElement("select");
+        statusSelect.className = "ticketStatusSelect";
+        statusSelect.id = `statusSelect${ticket.id}`;
+        
+        const optionNew = new Option("New", "new");
+        const optionDoing = new Option("Doing", "doing");
+        const optionDone = new Option("Done", "done");
+
+        statusSelect.add(optionNew);
+        statusSelect.add(optionDoing);
+        statusSelect.add(optionDone);
+
+        statusSelect.value = ticket.status;
+        
+        statusLabel.textContent = "Status: ";
+        statusLabel.appendChild(statusSelect);
+
+        newTicketDiv.appendChild(titleLabel);
+        newTicketDiv.appendChild(priorityLabel);
+        newTicketDiv.appendChild(statusLabel);
+
+        this.ticketList.appendChild(newTicketDiv);
+
+        statusSelect.addEventListener("change", () => {
+            helpdesk.changeTicketStatus(ticket.id, statusSelect.value);
+        });
+    }
 }
 
 const helpdesk = new Helpdesk();
-
-statusElement = document.getElementById("status");
-ticketList = document.getElementById("list");
-function renderTickets() {
-    ticketList.innerHTML = "";
-
-    let filteredTickets = helpdesk.filterTicketsByStatus(statusElement.value);
-    let sortedTickets = filteredTickets.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-
-    sortedTickets.forEach(ticket => {
-        createTicketDiv(ticket);
-    });
-
-    document.getElementById("showing").textContent = sortedTickets.length;
-    document.getElementById("totalTickets").textContent = helpdesk.tickets.length;
-}
 
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
@@ -96,52 +140,7 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
 
     helpdesk.addTicket(ticket);
 
-    renderTickets();
+    helpdesk.renderTickets();
 })
 
-statusElement.addEventListener('change', renderTickets);
-
-
-function createTicketDiv(ticket) {
-    let newTicketDiv = document.createElement("div");
-    newTicketDiv.id = ticket.id;
-    newTicketDiv.className = "ticketDiv";
-
-    let titleLabel = document.createElement("p");
-    titleLabel.textContent = ticket.title;
-    titleLabel.className = "ticketTitle";
-
-    let priorityLabel = document.createElement("p");
-    priorityLabel.textContent = `Priority: ${ticket.priority}`;
-    priorityLabel.className = "ticketPriority";
-
-    let statusLabel = document.createElement("p");
-    statusLabel.className = "ticketStatus";
-
-    let statusSelect = document.createElement("select");
-    statusSelect.className = "ticketStatusSelect";
-    statusSelect.id = `statusSelect${ticket.id}`;
-    
-    const optionNew = new Option("New", "new");
-    const optionDoing = new Option("Doing", "doing");
-    const optionDone = new Option("Done", "done");
-
-    statusSelect.add(optionNew);
-    statusSelect.add(optionDoing);
-    statusSelect.add(optionDone);
-
-    statusSelect.value = ticket.status;
-    
-    statusLabel.textContent = "Status: ";
-    statusLabel.appendChild(statusSelect);
-
-    newTicketDiv.appendChild(titleLabel);
-    newTicketDiv.appendChild(priorityLabel);
-    newTicketDiv.appendChild(statusLabel);
-
-    ticketList.appendChild(newTicketDiv);
-
-    statusSelect.addEventListener("change", () => {
-        helpdesk.changeTicketStatus(ticket.id, statusSelect.value);
-    });
-}
+statusElement.addEventListener('change', helpdesk.renderTickets);
