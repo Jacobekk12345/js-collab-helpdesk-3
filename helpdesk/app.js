@@ -112,7 +112,7 @@ function createTicketDiv(ticket) {
     statusSelect.add(optionDoing);
     statusSelect.add(optionDone);
 
-    statusSelect.value = "new";
+    statusSelect.value = ticket.status;
     
     statusLabel.textContent = "Status: ";
     statusLabel.appendChild(statusSelect);
