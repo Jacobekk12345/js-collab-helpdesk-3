@@ -50,5 +50,6 @@ html, body {
 .ticketTitle {
     font-weight: bold;
     font-size: x-large;
+    padding-bottom: 5px;
 }
 
