@@ -58,3 +58,12 @@ html, body {
     font-size: smaller;
     color: gray;
 }
+
+.removeLabel {
+    color: red;
+    font-size: smaller;
+    cursor: pointer;
+}
+.removeLabel:hover {
+    text-decoration: underline;
+}

@@ -126,6 +126,7 @@ class Helpdesk {
 
         removeLabel.addEventListener("click", () => {
             helpdesk.removeTicket(ticket.id);
+            helpdesk.renderTickets();
         })
     }
 }
