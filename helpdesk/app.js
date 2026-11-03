@@ -24,7 +24,7 @@ class Helpdesk {
         return this.tickets;
     }
 
-    changeTicketStatus(id, newStatus) {
+    removeTicket(id) {
         let left = 0,
             right = this.tickets.length - 1;
         while (left <= right) {
@@ -32,7 +32,7 @@ class Helpdesk {
             let ticket = this.tickets[pivot];
 
             if (ticket.id === id) {
-                ticket.status = newStatus;
+                this.tickets.splice(pivot, 1);
                 return true;
             }
             else if (ticket.id > id)
@@ -109,15 +109,24 @@ class Helpdesk {
         statusLabel.textContent = "Status: ";
         statusLabel.appendChild(statusSelect);
 
+        const removeLabel = document.createElement("p");
+        removeLabel.className = "removeLabel";
+        removeLabel.textContent = "Remove";
+
         newTicketDiv.appendChild(titleLabel);
         newTicketDiv.appendChild(priorityLabel);
         newTicketDiv.appendChild(statusLabel);
+        newTicketDiv.appendChild(removeLabel);
 
         this.ticketList.appendChild(newTicketDiv);
 
         statusSelect.addEventListener("change", () => {
-            helpdesk.changeTicketStatus(ticket.id, statusSelect.value);
+            ticket.status = statusSelect.value;
         });
+
+        removeLabel.addEventListener("click", () => {
+            helpdesk.removeTicket(ticket.id);
+        })
     }
 }
 
