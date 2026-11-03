@@ -13,10 +13,12 @@ class Helpdesk {
     }
 
     addTicket(ticket) {
+        feedbackLabel.textContent = "";
         if (this.tickets.length < 1000) {
             this.tickets.push(ticket)
             return true;
         }
+        feedbackLabel.textContent = "too many tickets!";
         return false;
     }
 
@@ -135,6 +137,8 @@ class Helpdesk {
     }
 }
 
+document.getElementById("title").focus();
+
 const helpdesk = new Helpdesk();
 
 const feedbackLabel = document.getElementById("feedback");
@@ -167,6 +171,3 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
 helpdesk.statusElement.addEventListener('change', () => {
     helpdesk.renderTickets();
 });
-
-// TODO: empty result info
-// TODO: empty name alert
