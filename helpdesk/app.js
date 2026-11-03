@@ -13,10 +13,12 @@ class Helpdesk {
     }
 
     addTicket(ticket) {
+        feedbackLabel.textContent = "";
         if (this.tickets.length < 1000) {
             this.tickets.push(ticket)
             return true;
         }
+        feedbackLabel.textContent = "too many tickets!";
         return false;
     }
 
