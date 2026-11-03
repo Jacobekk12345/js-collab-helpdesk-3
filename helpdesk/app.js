@@ -135,6 +135,8 @@ class Helpdesk {
     }
 }
 
+document.getElementById("title").focus();
+
 const helpdesk = new Helpdesk();
 
 const feedbackLabel = document.getElementById("feedback");
@@ -167,6 +169,3 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
 helpdesk.statusElement.addEventListener('change', () => {
     helpdesk.renderTickets();
 });
-
-// TODO: empty result info
-// TODO: empty name alert

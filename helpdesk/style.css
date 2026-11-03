@@ -72,3 +72,8 @@ html, body {
     font-size: smaller;
     color: red;
 }
+
+#list {
+    overflow-y: auto;
+    height: 70vh;
+}
