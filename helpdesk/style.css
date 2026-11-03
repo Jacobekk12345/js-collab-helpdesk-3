@@ -67,3 +67,8 @@ html, body {
 .removeLabel:hover {
     text-decoration: underline;
 }
+
+#feedback {
+    font-size: smaller;
+    color: red;
+}

@@ -74,6 +74,10 @@ class Helpdesk {
 
         document.getElementById("showing").textContent = sortedTickets.length;
         document.getElementById("totalTickets").textContent = helpdesk.tickets.length;
+    
+        if (sortedTickets.length == 0) {
+            this.ticketList.textContent = "no tickets to show!";
+        }
     }
 
     createTicketDiv(ticket) {
@@ -133,11 +137,18 @@ class Helpdesk {
 
 const helpdesk = new Helpdesk();
 
+const feedbackLabel = document.getElementById("feedback");
+
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
+
+    feedbackLabel.textContent = "";
+
     let title = document.getElementById("title").value.trim();
-    if (title.length < 3 || title.length > 80)
+    if (title.length < 3 || title.length > 80) {
+        feedbackLabel.textContent = "tickets title must have between 3 and 80 characters";
         return;
+    }
     let ticket = {
         id: helpdesk.currentId++,
         title: title,
@@ -156,3 +167,6 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
 helpdesk.statusElement.addEventListener('change', () => {
     helpdesk.renderTickets();
 });
+
+// TODO: empty result info
+// TODO: empty name alert
