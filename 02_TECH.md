@@ -1,51 +1,61 @@
-# C03_DOM - Informacje techniczne
+# C04_JS_ASYNC - Mechanizmy, przydatne koncepty i konstrukcje
 
-- DOM to obiektowa reprezentacja dokumentu
-- `querySelector()` zwraca element albo `null`
-- `createElement()` tworzy element ("node") 
-- `append()` dołącza element do już istniejącego elementu
-- `replaceChildren()` zastępuje elementy potomne ("dzieciaki", node'y znajdujące się wewnątrz)
-- `textContent()` ustawia tekst bez interpretowania go jako HTML
-- nazwa `name` kontrolki służy FormData; `id` pomaga selektorom i etykietom.
+- **ESM**: 
+    - `export` udostępnia nazwę 
+    - `import` pobiera ją z pliku
+    - w kodzie HTML tag `<script>`  ma atrybut `type=module`
+    - ścieżka `./domain.js` jest względna wobec importującego pliku
+    - moduły uruchamiamy przez HTTP:
+        - Live Server jedynie dostarcza pliki
+        - reguły nadal wykonuje przeglądarka
 
-```html
-<form id="book"><label>Tytuł książki <input name="title"></label><button>Sprawdź</button></form>
-<p id="answer" role="status"></p>
-<script src="demo.js" defer></script>
-```
+Przykład spoza domeny collaba:
+
 ```js
-const form = document.querySelector('#book');
-const answer = document.querySelector('#answer');
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  answer.textContent = String(new FormData(form).get('title')).trim();
-});
+// measurements.js
+export function mean(values) {
+  if (!values.length) throw Error('Brak pomiarów');
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
 ```
 
-- Zdarzenie submit obejmuje kliknięcie i Enter
-- `preventDefault()` powstrzymuje domyślną nawigację
-- handler jest funkcją przekazaną do `addEventListener()`, nie wynikiem jej natychmiastowego wywołania
-- tylko tablica `tickets` jest źródłem danych
-- filtr wylicza lokalne `visible`; nie usuwa elementów `tickets`
-- zmiana statusu identyfikuje rekord przez `id`, nigdy po tytule ani indeksie widocznej listy
-- reguły zwracają nową tablicę albo rzucają `Error`
-- handler łapie błąd i pozostawia formularz do poprawy
-- po pełnym renderze usunięty element traci fokus: ustawiacie go świadomie na filtrze po zmianie statusu, a na polu tytułu po dodaniu.
+- JSON jest formatem tekstowym, nie zapisem dowolnego kodu JS
+- `parse` sprawdza składnię, nie znaczenie danych
+-  sprawdźcie:
+    -  `Array.isArray` 
+    - obiekty inne niż null
+    -  pola
+    - dozwolone wartości
+    - unikalność ID
+-  `set` zapamiętuje różne wartości; jego `size` można porównać z długością kolekcji
 
-### Wspólna umowa Helpdesku
+```js
+async function loadMeasurements(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw Error(`HTTP ${response.status}`);
+  const raw = await response.json();
+  if (!Array.isArray(raw) || !raw.every(Number.isFinite)) throw Error('Złe pomiary');
+  return raw;
+}
+```
 
-- rekord zawiera `id`, `title`, `status`, `priority`
-- ID: napis niepusty po trim, oryginalna długość do 100, unikatowy w zbiorze
-- tytuł zapisujemy po `trim()`, długość 3–80. 
-- statusy: new/doing/done, dowolne przejście, także done -> new. 
-- priorytety: low/normal/high
-- do 1000 rekordów
+- obiekt `Promise` reprezentuje przyszły wynik lub błąd
+    - `async` zawsze zwraca `Promise`
+    - `await` zawiesza dalszy ciąg tej funkcji, a UI może odbierać kolejne zdarzenia (dlatego `busy` trzeba ustawić przed `await`)
+    - `finally` zwalnia blokadę również po błędzie
+    - `404` nie odrzuca automatycznie `fetch`; sprawdzamy `response.ok`
+- `File.text()` odczytuje plik wybrany kontrolką bez wysyłania go na serwer
+- `Storage` przechowuje tekst
+- `getItem` daje `null` przy braku klucza
+- `stringify` i `parse` służą do przejścia między tablicą a tekstem
+- Odczyt i zapis mogą rzucić wyjątek. 
+- Błąd zapisu pozostawia dane w pamięci i wymaga ostrzeżenia. 
+- Uszkodzony zapis nie jest automatycznie kasowany przy starcie
+    - w tej prostej wersji następna świadoma poprawna zmiana go zastąpi
+- Origin obejmuje protokół, host i port.
 
-### Przepływ zdarzeń Helpdesku: 
+### Dodatkowe źródła
 
-1. zdarzenie 
-1. odczyt 
-1. reguła 
-1. nowy stan 
-1. render
-
+- [korzystanie z asynchronicznych callbacków](https://www.w3schools.com/js/js_async_callbacks.asp)
+- [async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+- [Promise](https://www.w3schools.com/js/js_async_promises.asp)
