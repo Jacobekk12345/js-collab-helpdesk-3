@@ -135,6 +135,15 @@ class Helpdesk {
             helpdesk.renderTickets();
         })
     }
+
+    import(importData) {
+        try {
+            
+        }
+        catch(error) {
+
+        }
+    }
 }
 
 document.getElementById("title").focus();
@@ -170,4 +179,22 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
 
 helpdesk.statusElement.addEventListener('change', () => {
     helpdesk.renderTickets();
+});
+
+const fileInput = document.getElementById("importInput");
+fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+        console.log("couldnt open file");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        helpdesk.import(reader.result);
+    }
+
+    reader.readAsText(file);
 });
