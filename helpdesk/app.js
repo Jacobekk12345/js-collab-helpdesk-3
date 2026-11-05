@@ -6,16 +6,40 @@ const priorityOrder = {
 
 class Helpdesk {
     constructor() {
+        this.storageKey = "helpdeskData";
         this.tickets = [];
         this.currentId = 1;
         this.statusElement = document.getElementById("status");
         this.ticketList = document.getElementById("list");
+        this.loadFromStorage();
+    }
+
+    saveToStorage() {
+        const data = {
+            tickets: this.tickets,
+            currentId: this.currentId
+        };
+        localStorage.setItem(this.storageKey, JSON.stringify(data));
+    }
+
+    loadFromStorage() {
+        const raw = localStorage.getItem(this.storageKey);
+        if (!raw) return;
+        try {
+            const data = JSON.parse(raw);
+            this.tickets = data.tickets ?? [];
+            this.currentId = data.currentId ?? 1;
+        } catch (e) {
+            console.error("Corrupted storage data", e);
+            localStorage.removeItem(this.storageKey);
+        }
     }
 
     addTicket(ticket) {
         feedbackLabel.textContent = "";
         if (this.tickets.length < 1000) {
             this.tickets.push(ticket)
+            this.saveToStorage();
             return true;
         }
         feedbackLabel.textContent = "too many tickets!";
@@ -35,6 +59,7 @@ class Helpdesk {
 
             if (ticket.id === id) {
                 this.tickets.splice(pivot, 1);
+                this.saveToStorage();
                 return true;
             }
             else if (ticket.id > id)
@@ -128,6 +153,7 @@ class Helpdesk {
 
         statusSelect.addEventListener("change", () => {
             ticket.status = statusSelect.value;
+            helpdesk.saveToStorage();
         });
 
         removeLabel.addEventListener("click", () => {
@@ -142,6 +168,8 @@ document.getElementById("title").focus();
 const helpdesk = new Helpdesk();
 
 const feedbackLabel = document.getElementById("feedback");
+
+helpdesk.renderTickets();
 
 document.getElementById("submitButton").addEventListener('click', (e) => {
     e.preventDefault(); // prevents reload on enter
@@ -171,3 +199,4 @@ document.getElementById("submitButton").addEventListener('click', (e) => {
 helpdesk.statusElement.addEventListener('change', () => {
     helpdesk.renderTickets();
 });
+
