@@ -79,7 +79,7 @@ html, body {
     height: 70vh;
 }
 
-#importLabel:hover {
+#importLabel:hover, #exportLabel:hover {
     text-decoration: underline;
     cursor: pointer;
 }
