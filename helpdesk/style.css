@@ -29,6 +29,7 @@ html, body {
     border-radius: 3px;
     padding: 2px 10px 2px 10px;
     font-size: medium;
+    cursor: pointer;
 }
 
 #results {
@@ -77,4 +78,9 @@ html, body {
     overflow-y: auto;
     width: max(50%, 450px);
     height: 70vh;
+}
+
+#importLabel:hover, #exportLabel:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

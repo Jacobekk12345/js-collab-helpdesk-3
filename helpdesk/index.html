@@ -21,16 +21,18 @@
                     <option value="high">High</option>
                 </select><br>
                 <p id="feedback"></p>
-                <button type="submit" id="submitButton">
-                    Enter
-                </button>
+                <button type="submit" id="submitButton">Enter</button>
+                
+                <label for="importInput" id="importLabel">Import</label>
+                <input type="file" id="importInput" name="Import" accept=".json,.csv,.xml" hidden>
+                <span id="exportLabel">Export (testing)</span>
             </form>
         </div>
         <div id="results">
             <label for="status" id="statusLabel">Filter by status</label>
             <select id="status" name="status">
-                <option value="all">All</option>
-                <option value="new" selected="selected">New</option>
+                <option value="all" selected="selected">All</option>
+                <option value="new">New</option>
                 <option value="doing">Doing</option>
                 <option value="done">Done</option>
             </select>
