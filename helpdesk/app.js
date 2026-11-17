@@ -1,5 +1,3 @@
-import {csvImport} from "./csvImport.js";
-
 const priorityOrder = {
     high: 1,
     normal: 2,
@@ -101,7 +99,7 @@ class Helpdesk {
 
         document.getElementById("showing").textContent = sortedTickets.length;
         document.getElementById("totalTickets").textContent = helpdesk.tickets.length;
-    
+
         if (sortedTickets.length == 0) {
             this.ticketList.textContent = "no tickets to show!";
         }
@@ -126,7 +124,7 @@ class Helpdesk {
         let statusSelect = document.createElement("select");
         statusSelect.className = "ticketStatusSelect";
         statusSelect.id = `statusSelect${ticket.id}`;
-        
+
         const optionNew = new Option("New", "new");
         const optionDoing = new Option("Doing", "doing");
         const optionDone = new Option("Done", "done");
@@ -136,7 +134,7 @@ class Helpdesk {
         statusSelect.add(optionDone);
 
         statusSelect.value = ticket.status;
-        
+
         statusLabel.textContent = "Status: ";
         statusLabel.appendChild(statusSelect);
 
@@ -167,7 +165,7 @@ class Helpdesk {
         try {
             data = JSON.parse(importData);
         }
-        catch(error) {
+        catch (error) {
             return error;
         }
 
