@@ -4,6 +4,8 @@ const priorityOrder = {
     low: 3
 }
 
+const statuses = ['new', 'doing', 'done'];
+
 class Helpdesk {
     constructor() {
         this.storageKey = "helpdeskData";
@@ -75,17 +77,13 @@ class Helpdesk {
     }
 
     filterTicketsByStatus(status) {
-        if (status !== "all" &&
-            status !== "new" &&
-            status !== "doing" &&
-            status !== "done") {
-            return false;
-
-        }
-
         if (status === "all")
             return this.tickets;
-        
+
+        if (!(statuses.includes(status))) {
+            return [];
+        }
+
         return this.tickets.filter(ticket => ticket.status === status);
     }
 
@@ -161,6 +159,50 @@ class Helpdesk {
             helpdesk.renderTickets();
         })
     }
+
+    import(importData) {
+        let data;
+        try {
+            data = JSON.parse(importData);
+        }
+        catch(error) {
+            return error;
+        }
+
+        if (data == null || typeof data != "object")
+            return "wrong JSON format";
+
+        const highestId = data[data.length - 1].id;
+
+        console.log(highestId);
+
+        for (const ticket of data) {
+            if (typeof ticket.id != 'number')
+                return "id needs to be of type int";
+
+            if (typeof ticket.title != 'string')
+                return "title needs to be of type string";
+
+            if (typeof ticket.priority != 'string')
+                return "priority needs to be of type string";
+            if (!(ticket.priority in priorityOrder))
+                return "incorrect priority";
+
+            if (typeof ticket.status != 'string')
+                return "status needs to be of type string";
+            console.log(ticket.status)
+            if (!(statuses.includes(ticket.status)))
+                return "incorrect status";
+        }
+
+        this.tickets = data;
+        this.currentId = highestId + 1;
+
+        this.saveToStorage();
+        this.renderTickets();
+
+        return "import successful";
+    }
 }
 
 document.getElementById("title").focus();
@@ -200,3 +242,27 @@ helpdesk.statusElement.addEventListener('change', () => {
     helpdesk.renderTickets();
 });
 
+
+
+const fileInput = document.getElementById("importInput");
+fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+        console.log("couldnt open file");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        console.log(file);
+        alert(helpdesk.import(reader.result));
+    }
+
+    reader.readAsText(file);
+});
+
+document.getElementById("exportLabel").addEventListener('click', () => {
+    prompt("Your export JSON", JSON.stringify(helpdesk.tickets));
+})

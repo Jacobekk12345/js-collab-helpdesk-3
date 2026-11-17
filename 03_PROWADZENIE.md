@@ -1,4 +1,4 @@
-# C03_DOM - Prowadzenie krok po kroku
+# C04_JS_ASYNC - Prowadzenie krok po kroku
 
 ## Praca zespołu
 W parze:
@@ -24,76 +24,74 @@ W trójce:
 - Nie czekajcie z merge'owaniem branchy do końca collaba. 
 
 
-## 1. HTML i kontrolki
-- Zbudujcie:
-    -  `form`
-    - `input name=title`
-    -  `select` priorytetu
-    -  filtr
-    -  listę zgłoszeń
-    -  komunikat role=status
-- Podłączcie `app.js` przez atrybut `defer`
+## 1. Przejście na HTTP
+- otwórzcie folder w VS Code
+- zainstalujcie Live Server (autor: Ritwick Dey)
+- kliknijcie `index.html → Open with Live Server`
 
-**Sprawdźcie:** W konsoli selektory DOM zwracają elementy. `Null` oznacza zły selektor lub złą kolejność.
+**Sprawdźcie:**
 
-## 2. Dane przed widokiem
-- Ręcznie utwórzcie dwa rekordy o tym samym tytule i różnych id.
-- Uzgodnijcie `addTicket()` i `changeStatus()`.
+- adres `http://`, nie `file://`
+- sprawdźcie własny tickets.json w przeglądarce.
 
-**Sprawdźcie:** 
-- Reguły działają w konsoli bez czytania dokumentu.
-
-## 3. Pierwszy render
-- Wyczyśćcie tylko listę.
-- Dla każdego rekordu utwórzcie `<li>` i ustawcie tekst przez `textContent()`.
+## 2. Moduły
+- eksportujcie reguły `domain.js`
+- importujcie w `app.js`
+- HTML jeden tag `<script>` z atrybutem `type=module`
 
 **Sprawdźcie:** 
-- Ponowne renderowanie nie podwaja liczby wierszy.
-- Tekst `<b>ABC</b>` pozostaje tekstem.
 
-## 4. Dodawanie
-- W `submit` najpierw `preventDefault()`, potem odczyt, walidacja i nowy stan.
-- Czyśćcie pole tylko po sukcesie.
+- kod z C03 nadal działa
+- ewentualne występowanie błędów `404`: najpewniej przyczyną będą niewłaściwe ścieżki
 
-**Sprawdźcie:** 
-- Spacje i tytuł dwuznakowy nie dodają rekordu;
-- klawisz `[Enter]` działa (dodaje nowy rekord).
-
-## 5. Status po ID
-- Dla każdego wiersza dodajcie kontrolkę zmiany statusu.
-- Handler pamięta ID danego rekordu.
+## 3. Walidator zbioru
+- zwracacie nową kolekcję z czterema polami
+- sprawdźcie duplikaty i limit przed zmianą stanu
 
 **Sprawdźcie:** 
-- Zmiana drugiego z takich samych tytułów nie zmienia pierwszego.
 
-## 6. Filtr i licznik
-- Wyliczcie zgłoszenia w statusie `visible` w renderze.
-- Dodajcie informację o pustym wyniku i liczniku.
+- błędny ostatni rekord nie daje częściowego importu (*all or nothing*)
 
-**Sprawdźcie:** 
-- Filtr po `done`,
-- dodanie new,
-- powrót (all): nowe zgłoszenie nadal istnieje.
-
-## 7. Klawiatura i integracja
-- Przejdźcie korzystając z klawisza `[Tab]` przez cały formularz.
-- Po zmianie statusu sprawdźcie fokus i komunikat.
+## 4. Zapis i odczyt
+- zapis po poprawnej zmianie
+- przy starcie brak klucza to pusta lista
+- istniejący tekst walidujcie
 
 **Sprawdźcie:** 
-- Nie ma pułapki klawiaturowej (można obsłużyć cały formularz wyłącznie z klawiatury).
-- UI i stan zgadzają się.
+
+- odświeżenie zachowuje dane;
+- uszkodzenie JSON pokazuje błąd
+
+## 5. Import pliku
+- po wyborze pliku:
+    -  potwierdzenie chęci importu
+    - zablokowanie działania formularza,
+    - odczytanie `text`
+    - `parse`
+    - `validate`
+-  zapisanie w DOM
+
+**Sprawdźcie:** 
+
+- niepoprawny plik zachowuje stan i zapis
+- [] opróżnia po zgodzie
+
+## 6. Import HTTP
+- użyjcie tego samego mechanizmu zatwierdzania dla `fetch`
+- sprawdźcie `ok`, JSON i model.
+
+**Sprawdźcie:** 
+
+- 404
+- zły JSON
+-  zły rekord 
 
 ## Naprawa i porządkowanie
-- Przypisanie `tickets = tickets.filter(...)` w obsłudze filtra bezpowrotnie usuwa dane.
-- Filtr ma tworzyć tylko widok. 
-- Wydzielcie `createTicketRow(ticket)` z renderu.
+Podmiana tickets przed walidacją całości albo brak finally pozostawiający blokadę. Odtwórzcie awarię jednym fixture. Najpierw odtwórzcie błąd, potem naprawcie i powtórzcie to samo wejście.
+
+Jedna funkcja importFrom(load) obsługuje wspólne zatwierdzanie i błędy; różnią się tylko adaptery odczytu. Refaktoryzacja zachowuje wynik, więc wykonajcie próby przed i po zmianie.
 
 ## Końcowa próba zespołu
-- tytuły długości 2,3,80,81 po trim
-- dwa takie same tytuły
--  wszystkie statusy
--  pusty filtr
--  tekst HTML
-- Enter
-- odświeżenie
-- 1000/1001 zgłoszeń w próbie domeny
+Odczyt po odświeżeniu, odmowa zapisu, zły JSON w storage, import [], duplikat, zły ostatni rekord, 404, HTML zamiast JSON, anulowane potwierdzenie, podwójne kliknięcie, wolna sieć.
+
+Eksport JSON jako kopia danych.

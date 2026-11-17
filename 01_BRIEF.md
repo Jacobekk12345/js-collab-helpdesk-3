@@ -1,62 +1,57 @@
-# C03_DOM - Helpdesk: od danych do DOM
+# C04_JS_ASYNC - Helpdesk: moduły, zapis i import
 
-Zbudujecie Helpdesk w pamięci przeglądarki. 
+## Założenia wstępne:
 
-**TECH** wyjaśnia konstrukcje, **PROWADZENIE** dzieli tę samą pracę na kroki.
+- Rozwijacie własny kod z collabu 3 - aplikację "Szkolny helpdesk" (lub to co zrobiliście bazując na tym szkielecie).
+- Pracujecie w zespołach dwu lub trzy osobowych:
+    - Osobą pozostającą w zespole jest "osiołek" (właściciel repozytorium; przypominam - "osiołek" gdyż dźwiga ciężar repozytorium!)
+    - Jedna osoba z zespołu tworzącego kod w collabie 3 odchodzi do innego zespołu:
+        - W każdym zespole musi znaleźć się jeden nowy programista/nowa programistka z innego zespołu
+        - Zespół wprowadza nowego członka/nową członkinię w kod i założenia stojące za jego powstaniem
+    - Kontrakt danych dla zespołu obowiązuje taki jak w poprzednim collabie w zespole, w którym jest "osiołek"
 
-### Funkcjonalności: 
+## Do zrobienia:
 
-- dodawanie tytułu i priorytetu dla zgłoszenia
-- lista zgłoszeń
-- zmiana statusu po ID
-- filtr all/new/doing/done
-- licznik widoczne/wszystkie
-- komunikat pustego wyniku.
+- wydzielenie modułów ESM
+- korzystanie z obiektu Promise! (async, await, finally)
+- dodanie `localStorage`
+- import:
+    - lokalnego JSONa ze zgłoszeniami przez `fetch`
+    - z pliku wskazanego przez użytkownika:
+        - (obowiązkowy) JSON
+        - (opcjonalnie) CSV
+        - (hardcore) XML
+    - importowane dane zastępują aktualną listę dopiero po:
+        -  potwierdzeniu przez użytkownika 
+        - walidacji danych
+    - błąd podczas importu zachowuje poprzednią listę
+    - na czas importowania blokowane jest:
+        - edycja listy (dodawanie, zmiana statusów, usuwanie)
+        - kolejne importy
+- protokół HTTP obsługujecie przez uruchomienie wtyczki `Live Server` z poziomu `Visual Studio Code`:
+    - [Live Server - Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+    - NIE instalujecie Node.js, ani npm
 
-### Wymagania:
+## Do sprawdzenia:
 
-- formularz (dodawanie nowego zgłoszenia) działa przez pociśnięcie klawisza [Enter]
-- elementy mają etykiety
-- odświeżenie resetuje dane
+- odczyt po odświeżeniu
+- odmowa zapisu
+- zły JSON w storage
+- import []
+- duplikat
+- zły ostatni rekord
+- 404
+- HTML zamiast JSON
+- anulowane potwierdzenie
+- podwójne kliknięcie
 
-Praca w zespołach dwu lub trzyosobowych. 
+## Nice to have
 
-Wspólne repozytorium na GitHub ("osiołek" zakłada, dodaje współpracowników).
+**TYLKO I WYŁĄCZNIE PO UKOŃCZENIU PODSTAWOWEJ FUNKCJONALNOŚCI!**
 
-### Kontrakt danych: 
-
-- **id:** niepusty napis, do 100 znaków i unikatowy
-- **title:** trim i 3–80 znaków
-- **status:** new/doing/done
-- **priority:** low/normal/high
-- nowy wpis ma status new
-- maksymalnie 1000 rekordów
-- zmiana statusu także done -> new
-
-### Sprawdzanie/testy: 
-
-- tytuły długości 2,3,80,81 znaków po trim
-- dwa takie same tytuły
-- wszystkie statusy
-- pusty filtr
-- tekst HTML
-- dodawanie przez pociśnięcie [Enter]
-- odświeżenie 
-- 1000/1001 zgłoszeń w próbie domeny
-
-### Uwaga: 
-
-Przypisanie `tickets = tickets.filter(...)` w obsłudze filtra bezpowrotnie usuwa dane. 
-
-Filtr ma tworzyć tylko widok!
-
-### Refaktoryzacja: 
-
-Wydzielacie `createTicketRow(ticket)` z renderu i powtarzcie te same próby.
-
-### Opcjonalnie: 
-
-Sortowanie widoku bez zmiany tożsamości i źródłowej kolejności.
-
-
-
+- eksport listy:
+    - (easy) JSON
+    - (medium) CSV
+    - (hell) XML
+- oprawa wizualna (lepsze UI z wykorzystaniem CSS)
+- dodatkowe wodotryski wedle fantazji zespołu
